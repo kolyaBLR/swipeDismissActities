@@ -17,7 +17,7 @@ class DetailActivity : SlidingActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        textView.setOnClickListener {
+        animationClose.setOnClickListener {
             finishDrag()
         }
         BTT.setOnClickListener { direction = SlidingActivity.Direction.BOTTOM_TO_TOP }

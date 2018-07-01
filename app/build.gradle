@@ -23,6 +23,7 @@ android {
 }
 
 dependencies {
+    //implementation 'com.github.kolyaBLR:swipeDismissActities:master'
     implementation project(":slidingdismiss")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
