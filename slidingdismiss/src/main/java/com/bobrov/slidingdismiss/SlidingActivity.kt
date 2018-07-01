@@ -65,10 +65,10 @@ public abstract class SlidingActivity : AppCompatActivity() {
                     isSliding = false
                     handled = true
                     val isClose = when (direction()) {
-                        Direction.TOP_TO_BOTTOM -> shouldClose(event.y - startY)
-                        Direction.BOTTOM_TO_TOP -> shouldClose(startY - event.y)
-                        Direction.LEFT_TO_RIGHT -> shouldClose(event.x - startX)
-                        Direction.RIGHT_TO_LEFT -> shouldClose(startX - event.x)
+                        Direction.TOP_TO_BOTTOM -> shouldClose(event.y - startY, Y)
+                        Direction.BOTTOM_TO_TOP -> shouldClose(startY - event.y, Y)
+                        Direction.LEFT_TO_RIGHT -> shouldClose(event.x - startX, X)
+                        Direction.RIGHT_TO_LEFT -> shouldClose(startX - event.x, X)
                     }
                     if (isClose) finishDrag() else {
                         root.y = 0f
@@ -112,7 +112,11 @@ public abstract class SlidingActivity : AppCompatActivity() {
     private fun isSlidingRight(startX: Float, ev: MotionEvent) = ev.x - startX > gestureThreshold
     private fun isSlidingLeft(endX: Float, ev: MotionEvent) = endX - ev.x > gestureThreshold
 
-    private fun shouldClose(delta: Float) = delta > screenSize.y / 3
+    private fun shouldClose(delta: Float, propertyName: String) = delta > when(propertyName) {
+        X -> screenSize.x / 3
+        Y -> screenSize.y / 3
+        else -> throw SwipeException("not found valid propertyName")
+    }
 
     open fun direction() = Direction.TOP_TO_BOTTOM
     open fun isActiveSliding() = true
